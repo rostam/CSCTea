@@ -3,7 +3,7 @@
 <title>GraphTea</title>
 <style type="text/css">
 body {
-	background-color: #C0C0C0;
+	background-color:gray;
 }
 
 .matrix {
@@ -24,7 +24,7 @@ body {
 
 .matrix .first {
 	border: none;
-	background-color: #C0C0C0;
+	background-color:gray;
 }
 
 </style>
