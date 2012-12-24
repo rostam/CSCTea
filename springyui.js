@@ -35,6 +35,7 @@ jQuery.fn.springy = function(params) {
 	var selected = null;
 	var canvas = this[0];
 	var ctx = canvas.getContext("2d");
+	//ctx.clearRect(0,0,canvas.width,canvas.height)
 
 	var layout = this.layout = new Layout.ForceDirected(graph, stiffness, repulsion, damping);
 	var arrRemoveEdges = new Array();

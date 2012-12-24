@@ -144,6 +144,10 @@ Graph.prototype.removeNode = function(node) {
 
 };
 
+Graph.prototype.removeAll = function() {
+	while(this.nodes.length != 0) this.removeNode(this.nodes[0]);
+}
+
 // removes edges associated with a given node
 Graph.prototype.detachNode = function(node) {
 	var tmpEdges = this.edges.slice();
