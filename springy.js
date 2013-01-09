@@ -37,6 +37,7 @@ var Graph = function() {
 	this.eventListeners = [];
 	this.velocity = 0.006;
 	this.position = 0.006;
+	this.arrRemoveEdges = new Array();
 };
 
 var Node = function(id, data) {
@@ -146,6 +147,7 @@ Graph.prototype.removeNode = function(node) {
 
 Graph.prototype.removeAll = function() {
 	while(this.nodes.length != 0) this.removeNode(this.nodes[0]);
+	this.nextNodeId = 0;
 }
 
 // removes edges associated with a given node

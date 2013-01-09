@@ -22,8 +22,20 @@ function generate() {
 		return graph;
 	};
 
-	this.cmn = function(m,n) {
-		return new Graph();
+	this.random = function(n,p) {
+		if(p == "") {alert('Please enter a value for the probability p.');return;}
+		var verts = new Array();
+		var graph = new Graph()
+		
+		for(var i=0;i < n;i++) verts[i] = graph.newNode();
+		
+		for(var i=0;i < n;i++) 
+		for(var j=i+1;j < n;j++) 
+		if(Math.random() < p)
+			graph.newEdge(verts[i],verts[j],{color: 'blue', directional:false});		
+		
+		return graph;
 	};
+
 };
 

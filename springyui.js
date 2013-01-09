@@ -38,7 +38,7 @@ jQuery.fn.springy = function(params) {
 	//ctx.clearRect(0,0,canvas.width,canvas.height)
 
 	var layout = this.layout = new Layout.ForceDirected(graph, stiffness, repulsion, damping);
-	var arrRemoveEdges = new Array();
+	
 	var indA=-1,indB=-1;
 	// calculate bounding box of graph layout.. with ease-in
 	var currentBB = layout.getBoundingBox();
@@ -98,13 +98,16 @@ jQuery.fn.springy = function(params) {
 				} else {
 				var node = selected.node;
 				indA=0;indB=0;
-				arrRemoveEdges=new Array();
+				graph.arrRemoveEdges=new Array();
 				graph.nodes.forEach(function(m) {
+					
                                 	if(graph.getEdges(node, m).length != 0 
 					|| graph.getEdges(m, node).length !=0) {
-						arrRemoveEdges[arrRemoveEdges.length] = m;
+						graph.arrRemoveEdges[graph.arrRemoveEdges.length] = m;
 					}				
 				},this);
+					
+				nodeSelected(selected.node);
 				}
 			}
 		}
@@ -284,16 +287,17 @@ jQuery.fn.springy = function(params) {
 		},
 		function drawRemoveEdge() {		
 			if(indA == -1) return;	
-			if(indA >= arrRemoveEdges.length) 
+			if(indA >= graph.arrRemoveEdges.length) 
 			{
 				indA=-1;
 				graph.removeNode(selected.node);return;			
 			}
 			//alert(indA);
-			if(graph.getEdges(arrRemoveEdges[indA], arrRemoveEdges[indB]).length == 0 &&
-			graph.getEdges(arrRemoveEdges[indB], arrRemoveEdges[indA]).length == 0)			
-				graph.newEdge(arrRemoveEdges[indA], arrRemoveEdges[indB],{directional:false, color:"blue"});
-			if(arrRemoveEdges.length - 1> indB) indB++; else {indA++;indB=indA}
+			if(indA != indB)
+			if(graph.getEdges(graph.arrRemoveEdges[indA], graph.arrRemoveEdges[indB]).length == 0 &&
+			graph.getEdges(graph.arrRemoveEdges[indB], graph.arrRemoveEdges[indA]).length == 0)			
+				graph.newEdge(graph.arrRemoveEdges[indA], graph.arrRemoveEdges[indB],{directional:false, color:"blue"});
+			if(graph.arrRemoveEdges.length - 1> indB) indB++; else {indA++;indB=indA}
 		}
 	);
 

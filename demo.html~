@@ -3,14 +3,14 @@
 <title>GraphTea</title>
 <style type="text/css">
 body {
-	background-color:gray;
+	background-color: #C0C0C0;
 }
 
 .matrix {
 	font-family:'Times New Roman',Times,serif;
 	font-size:200%;
-	width:480px;
-	height:480px;
+	width:100%;
+	height:100%;
 	background-color:white;
 	border-collapse:collapse;
 }
@@ -24,8 +24,9 @@ body {
 
 .matrix .first {
 	border: none;
-	background-color:gray;
+	background-color: #C0C0C0;
 }
+
 
 </style>
 </head>
@@ -35,43 +36,72 @@ body {
 <script src="springyui.js"></script>
 <script src="createMatrix.js"></script>
 <script src="html5slider.js"></script>
+<script src="generate.js"></script>
 <script>
 
-var graph = new Graph();
 
-var v0 = graph.newNode();
-var v1 = graph.newNode();
-var v2 = graph.newNode();
-var v3 = graph.newNode();
-var v4 = graph.newNode();
-var v5 = graph.newNode();
-var v6 = graph.newNode();
-var v7 = graph.newNode();
-var v8 = graph.newNode();
+var gen = new generate();
+var graph = gen.complete(6);
+window.onload = init;
 
-graph.newEdge(v0, v1,{color: '#00A0B0',directional:false});
-graph.newEdge(v1, v2, {color: '#CC333F',directional:false});
-graph.newEdge(v2, v4, {color: '#EB6841',directional:false});
-graph.newEdge(v1, v3, {color: '#EDC951',directional:false});
-graph.newEdge(v5, v6, {color: '#7DBE03C',directional:false});
-graph.newEdge(v0, v6, {color: '#000000',directional:false});
-graph.newEdge(v6, v7, {color: '#00A0B0',directional:false});
-graph.newEdge(v4, v3, {color: '#6A4A3C',directional:false});
-graph.newEdge(v0, v8, {color: '#CC333F',directional:false});
-graph.newEdge(v8, v6, {color: '#EB6841',directional:false});
+function init() {
+	for(var m in gen) {	
+	if(typeof gen[m] == "function")
+	{
+		var x=document.getElementById("generators");
+		var option=document.createElement("option");
+		option.text=m;
+		option.onclick="alert('s');";
+		try
+  		{
+  			// for IE earlier than version 8
+  			x.add(option,x.options[null]);
+  		}	
+		catch (e)
+  		{
+  			x.add(option,null);
+  		}
+            //graph=gen[m](5);
+	}
+	}
+}
+
+var cashArr = new Array();
+var ft = 1
 
 jQuery(function(){
 	var springy = jQuery('#springydemo').springy({
 		graph: graph,
 		nodeSelected: function(node){	
+			if(graph.cholesky == true) {
+				
+				for(var i=0;i < cashArr.length;i++) {
+					cashArr[node.id][i] = 0;
+					cashArr[i][node.id] = 0;
+				}
+				var temp = graph.arrRemoveEdges;
+				for(var i=0;i < temp.length;i++)
+				{
+					for(var j=i+1;j < temp.length;j++) 
+					{
+						cashArr[temp[i].id][temp[j].id] = 1;	
+					}					
+				}
+
+				document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+			}
 		}
+
 	});
+        if(ft == 1) {
+		cashArr = graph.matrix();
+		document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+	} 
 });
 
 function cholesky() {
 	if(graph.cholesky == false) {graph.cholesky = true;document.getElementById('cholesky').innerHTML = 'Deactivate Cholesky';}
 	else {graph.cholesky = false;document.getElementById('cholesky').innerHTML = 'Activate Cholesky';}
-	document.getElementById('matrix').innerHTML = createMatrix(graph.matrix());
 }
 
 function edit() {
@@ -84,10 +114,32 @@ function updateSlider(value, type) {
 	else graph.position = value;
 }
 
+function updateGraph() {
+	graph.removeAll();	
+	var g2=gen[$('#generators option:selected').text()](document.getElementById("n").value,document.getElementById("m").value);
+	var arr = new Array();
+	g2.nodes.forEach(function(n)
+	{
+		arr[n.id] = graph.newNode();
+	});
+	
+	g2.edges.forEach(function(e)
+	{
+		graph.newEdge(arr[e.source.id], arr[e.target.id],{color: 'blue', directional:false});
+	});
+
+	cashArr = graph.matrix();
+	document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+}
+
 </script>
-<table width="1300" height="480">
-<tr><td>
-<!-- button id='edit' onclick="edit()">Activate Edit Mode</button-->
+<table width="100%" height="480">
+<tr><td width="20%">
+<div>Graph Generators:
+<select onchange="updateGraph();" id="generators">
+</select></div>
+<div>n: <input id="n"/></div><div>p:<input id="m"/></div>
+<br/>
 <button id='cholesky' onclick="cholesky()">Activate Cholesky</button>
 <div id="slider">
 Update Velocity:<br/>
@@ -101,7 +153,8 @@ Update Position:<br/>
 <input id="slide" type="range" min="0.000" max="0.06" step="0.001" value="0.006" onchange="updateSlider(this.value, 'position')" />
 0.06
 </div>
+</td><td width="40%">
 <canvas id="springydemo" width="640" height="480"></canvas>
-</td><td id="matrix"></td></tr></table>
+</td><td width="40%" id="matrix"></td></tr></table>
 </body>
 </html>
