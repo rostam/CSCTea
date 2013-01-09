@@ -89,14 +89,14 @@ jQuery(function(){
 					}					
 				}
 
-				document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+				document.getElementById('matrix').innerHTML = createMatrix(cashArr,0);
 			}
 		}
 
 	});
         if(ft == 1) {
 		cashArr = graph.matrix();
-		document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+		document.getElementById('matrix').innerHTML = createMatrix(cashArr,0);
 	} 
 });
 
@@ -130,7 +130,7 @@ function updateGraph() {
 	});
 
 	cashArr = graph.matrix();
-	document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+	document.getElementById('matrix').innerHTML = createMatrix(cashArr,1);
 }
 
 </script>

@@ -81,7 +81,7 @@ jQuery(function(){
 				}
 				var temp = graph.arrRemoveEdges;
 				for(var i=0;i < temp.length;i++)
-				{	alert(temp[i].id);
+				{	
 					for(var j=0;j < temp.length;j++) 
 					{
 						if(i!=j)
@@ -130,7 +130,7 @@ function updateGraph() {
 	});
 
 	cashArr = graph.matrix();
-	document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+	document.getElementById('matrix').innerHTML = createMatrix(cashArr,1);
 }
 
 </script>

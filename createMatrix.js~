@@ -1,7 +1,6 @@
 var cash2 = new Array();
-var first_time =1;
 
-function createMatrix(arr,changes_color) {
+function createMatrix(arr, first_time) {
 	var str="<table class='matrix'>";
 	str+="<tr class='first'><td class='first'> &nbsp; </td>";
 	for(var i=0;i<arr.length;i++) { 
@@ -29,13 +28,13 @@ function createMatrix(arr,changes_color) {
 	    	}
 		str+="</tr>";
 	}
-	if(first_time == 1)
-	{for(var i=0;i<arr.length;i++) {
+	
+	for(var i=0;i<arr.length;i++) {
 		cash2[i] = new Array();
 		for(var j=0;j<arr[i].length;j++) {
 			cash2[i][j] = arr[i][j];
         	}
-	}}
+	}
 	
 	return str+"</table>";
 }
