@@ -89,14 +89,14 @@ jQuery(function(){
 					}					
 				}
 
-				document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+				document.getElementById('matrix').innerHTML = createMatrix(cashArr,0);
 			}
 		}
 
 	});
         if(ft == 1) {
 		cashArr = graph.matrix();
-		document.getElementById('matrix').innerHTML = createMatrix(cashArr);
+		document.getElementById('matrix').innerHTML = createMatrix(cashArr,0);
 	} 
 });
 
@@ -141,7 +141,7 @@ function updateGraph() {
 </select></div>
 <div>n: <input id="n"/></div><div>p:<input id="m"/></div>
 <br/>
-<button id='cholesky' onclick="cholesky()">Activate Cholesky</button>
+
 <div id="slider">
 Update Velocity:<br/>
 0.001 
@@ -154,6 +154,8 @@ Update Position:<br/>
 <input id="slide" type="range" min="0.000" max="0.06" step="0.001" value="0.006" onchange="updateSlider(this.value, 'position')" />
 0.06
 </div>
+</br>
+<button id='cholesky' onclick="cholesky()">Activate Cholesky</button>
 </td><td width="40%">
 <canvas id="springydemo" width="640" height="480"></canvas>
 </td><td width="40%" id="matrix"></td></tr></table>
