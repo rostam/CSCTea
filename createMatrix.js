@@ -1,7 +1,7 @@
 var cash2 = new Array();
 
 function createMatrix(arr, first_time) {
-	var str="<table class='matrix'>";
+	var str="<table class='table table-bordered table-hover'>";
 	str+="<tr class='first'><td class='first'> &nbsp; </td>";
 	for(var i=0;i<arr.length;i++) { 
 		str+="<td class='first'>" + i + "</td>";

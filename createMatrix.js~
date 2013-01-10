@@ -17,7 +17,7 @@ function createMatrix(arr, first_time) {
 	for(var i=0;i<arr.length;i++) {
 		str+="<tr><td class='first'>" + i + "</td>";
 		for(var j=0;j<arr[i].length;j++) {
-			if(cash2 !=  undefined && cash2[0] != undefined && cash2[0].length == arr[0].length) {
+			if(first_time == 0 && cash2 !=  undefined && cash2[0] != undefined && cash2[0].length == arr[0].length) {
 				if(cash2[i][j] != arr[i][j]) 
 					str += "<td style='color : red;'>" + arr[i][j] + "</td>"; 
 				else        		
