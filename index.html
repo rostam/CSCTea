@@ -109,15 +109,14 @@
     }
   }
 
-  function edit() {
-    if (graph.edit == false) {
-      graph.edit = true;
-      document.getElementById('edit').innerHTML = 'Deactivate Edit Mode';
-    }
-    else {
-      graph.edit = false;
-      document.getElementById('edit').innerHTML = 'Activate Edit Mode';
-    }
+  function newNode() {
+	verts[verts.length] = graph.newNode();
+  }
+
+  function newEdge() { 
+     var favorite = prompt('Which vertices do you like to connect?', '0,1');
+     graph.newEdge(verts[parseInt(favorite.substring(0,favorite.indexOf(",")))], 
+	verts[parseInt(favorite.substring(favorite.indexOf(",")+1))],{color: 'blue', directional:false}); 
   }
 
   function updateSlider(value, type) {
@@ -148,6 +147,9 @@
 </h1>
 
 <button id='cholesky' class='btn btn-primary btn-large' onclick="cholesky()">Activate Cholesky</button>
+<button id='newNode' class='btn btn-primary btn-large' onclick="newNode()">New Vertex</button>
+<button id="newEdge" class='btn btn-primary btn-large' onClick="newEdge()">New Edge</button>
+
 <br><br>
 
 <div style="box-shadow: 0 0 10px; border-radius: 10px;">

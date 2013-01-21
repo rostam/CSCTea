@@ -86,9 +86,6 @@ jQuery.fn.springy = function(params) {
 		var p = fromScreen({x: e.pageX - pos.left, y: e.pageY - pos.top});
 		selected = nearest = dragged = layout.nearest(p);
 		
-		if (graph.edit == true) {
-			graph.newNode();
-		} 
 		else if (selected.node !== null) {
 			dragged.point.m = 10000.0;
 
@@ -103,7 +100,6 @@ jQuery.fn.springy = function(params) {
 					
                                 	if(graph.getEdges(node, m).length != 0 
 					|| graph.getEdges(m, node).length !=0) {
-						alert(m);
 						graph.arrRemoveEdges[graph.arrRemoveEdges.length] = m;
 					}				
 				},this);

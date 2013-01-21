@@ -1,3 +1,4 @@
+var verts = new Array();
 function generate() {
 	this.complete = function(n) {
 		var verts = new Array();
@@ -13,7 +14,7 @@ function generate() {
 	};
 
 	this.cn  = function(n)   {
-		var verts = new Array();
+		
 		var graph = new Graph()
 		
 		for(var i=0;i < n;i++) verts[i] = graph.newNode();
@@ -34,7 +35,7 @@ function generate() {
 		if(Math.random() < p)
 			graph.newEdge(verts[i],verts[j],{color: 'blue', directional:false});		
 		
-		return graph
+		return graph;
 	};
 
 };

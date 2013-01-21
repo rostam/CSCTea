@@ -1,6 +1,7 @@
+var verts = new Array();
 function generate() {
 	this.complete = function(n) {
-		var verts = new Array();
+		verts = new Array();
 		var graph = new Graph()
 		
 		for(var i=0;i < n;i++) verts[i] = graph.newNode();
@@ -13,7 +14,7 @@ function generate() {
 	};
 
 	this.cn  = function(n)   {
-		var verts = new Array();
+		verts = new Array();
 		var graph = new Graph()
 		
 		for(var i=0;i < n;i++) verts[i] = graph.newNode();
@@ -24,7 +25,7 @@ function generate() {
 
 	this.random = function(n,p) {
 		if(p == "") {alert('Please enter a value for the probability p.');return;}
-		var verts = new Array();
+		verts = new Array();
 		var graph = new Graph()
 		
 		for(var i=0;i < n;i++) verts[i] = graph.newNode();
